@@ -32,56 +32,47 @@ Figures:
 
 First build the list of targets matching everything that looks like 
 
+
+
+
+
+
+xrFigInlineKey 
+xrFigRefStyleKey = 
+xrFigRefndpointKey = 
+
+xrLazyTargetKey =
 ]]
-
-
-
-
-xrFigInlineKey = "%!%[%a%a%a%:[%w%_*%-*]+.+%]%((.-)([^\\/]-%.?([^%.\\/]*))[%s+\"*\'*.\"*\'*]*%)" 
-xrFigRefStyleKey = "%!%[.+%]%[%a%a%a%:[%w%_*%-*]+%]"
-xrFigRefndpointKey = "%[%a%a%a%:[%w%_*%-*]+%]%:%s+(.-)([^\\/]-%.?([^%.\\/]*))%s+[\"*\'*.\"*\'*]*%s*[width=[\"*\'*.\"*\'*]]?"
-
-xrLazyTargetKey = "%[%a%a%a%:[%w%_*%-*]+%]"
 xrTargetKeys = {}
-figcount=0
-tabcount=0
 
+xrTypes = {}
+xrTypes["fig"]={ ["Name"]      = "Figure", 
+                    ["Counter"]   = 1, 
+                    ["Inline"]    = "%!%[%a%a%a%:[%w%_*%-*]+.+%]%((.-)([^\\/]-%.?([^%.\\/]*))[%s+\"*\'*.\"*\'*]*%)", 
+                    ["RefInline"] = "%!%[.+%]%[%a%a%a%:[%w%_*%-*]+%]", 
+                    ["RefEnd"]    = "%[%a%a%a%:[%w%_*%-*]+%]%:%s+(.-)([^\\/]-%.?([^%.\\/]*))%s+[\"*\'*.\"*\'*]*%s*[width=[\"*\'*.\"*\'*]]?",
+                    ["Target"]    = "%[fig:[%w%_*%-*]+%]" 
+                  }
+                  
+--xrTypes["tab"]={["Name"]="Table",  ["Counter"]=1}
 
-
-
-sSearchKey
-
-
-
-if sType == "md" then
-  sSearchKey = xrmdrefendpointKey -- xrmdTargetKey
-  sRepKey = xrmdRefKey
-elseif sType == "html" then
-  sSearchKey = xrhtmlTargetKey
-  sRepKey = xrhtmlRefKey
-else
-  sSearchKey = xrmdTargetKey
-  sRepKey = xrtxtRefKey
-end
-
-for sLine in io.lines(sInputfile) do 
-  for sTemp in string.gmatch(sLine, sSearchKey) do
-    s = sTemp:sub(2, -2)
-    if xrTargetKeys[s] == nil then -- Don't Store Duplicates  
-      if s:sub(1,3) == "fig" then
-        figcount=figcount+1
-        current=figcount
-      elseif s:sub(1,3) == "tab" then
-        tabcount=tabcount+1
-        current=tabcount
-      end
-      xrTargetKeys[s] = current
-    end  
+-- Build List of all Figures Increamenting as you go.
+for xrType in pairs(xrTypes) do
+  for sLine in io.lines(sInputfile) do 
+    for TempID in string.gmatch(sLine, xrTypes.fig.Target) do
+      ID = TempID:sub(2, -2)
+      if xrTargetKeys[ID] == nil then -- Don't Store Duplicates  
+        xrTargetKeys[ID] = xrTypes.fig.Counter
+        xrTypes.fig.Counter = xrTypes.fig.Counter+1
+      end  
+    end
   end
 end
 
-file = io.open(("xr"..sInputfile), "w")
 
+file = io.open(("xr"..sInputfile), "w") -- List is build Now Open new file for writing to same output.
+
+--[[
 for sLine in io.lines(sInputfile) do 
   for sTemp in string.gmatch(sLine, xrmdRefKey) do
     s = sTemp:sub(2, -3)
@@ -95,23 +86,8 @@ for sLine in io.lines(sInputfile) do
     end  
   end
   file:write(sLine, "\n")
-
-
-  --[[ Write the line out here]]
 end
-file:close()
-
---[[
-
-
-
-
-
-
-
 ]]
 
-
-
-
+file:close()  -- Close it
 

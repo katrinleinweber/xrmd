@@ -805,9 +805,9 @@ for links, allowing for two styles: *inline* and *reference*.
 
 Inline image syntax looks like this:
 
-    ![Alt text](/path/to/img.jpg)
+![fig:test1 - Alt Text (caption) 1](/path/to/img.jpg)
 
-    ![Alt text](/path/to/img.jpg "Optional title")
+![fig:test2: (caption 2) Alt Text 2](/path/to/img.jpg "Optional title 2")
 
 That is:
 
@@ -820,12 +820,12 @@ That is:
 
 Reference-style image syntax looks like this:
 
-    ![Alt text][id]
+![fig:test3 Alt Text 3][fig:test3]
 
 Where "id" is the name of a defined image reference. Image references
 are defined using syntax identical to link references:
 
-    [id]: url/to/image  "Optional title attribute"
+[fig:test3]: url/to/image  "Optional title attribute 3 (caption 3)"
 
 As of this writing, Markdown has no syntax for specifying the
 dimensions of an image; if this is important to you, you can simply
