@@ -66,12 +66,12 @@ xrTypes["fig"]={ ["Name"]      = "Figure",
                     ["Target"]    = "%[fig:[%w%_*%-*]+%]" 
                   }  
                   
-xrTypes["tab"]={ ["Name"]      = "Table", 
+xrTypes["gen"]={ ["Name"]      = "General", 
                     ["Counter"]   = 1, 
                     ["Inline"]    = "%!%[fig:%g+%s.+%]%(.+%)", 
                     ["RefInline"] = "%!%[.+%]%[fig:[%w%_*%-*]+%]", 
                     ["RefEnd"]    = "%[fig:[%w%_*%-*]+%]%:%s+(.-)([^\\/]-%.?([^%.\\/]*))%s+[\"*\'*.\"*\'*]*%s*[width=[\"*\'*.\"*\'*]]?",
-                    ["Target"]    = "%[tab:[%w%_*%-*]+%]" 
+                    ["Target"]    = "%[gen:[%w%_*%-*]+%]" 
                   }                                  
               
                   
@@ -80,12 +80,27 @@ xrTypes["tab"]={ ["Name"]      = "Table",
 -- Build List of all Figures Increamenting as you go.
 for xrType in pairs(xrTypes) do
   for sLine in io.lines(sInputfile) do 
-    for tempID in string.gmatch(sLine, xrTypes.fig.Target) do
-      findID = tempID:sub(2, -2)
-      if xrTargetKeys[findID] == nil then -- Don't Store Duplicates  
-        xrTargetKeys[findID] = xrTypes.fig.Counter
-        xrTypes.fig.Counter = xrTypes.fig.Counter+1
-      end  
+    for findID in string.gmatch(sLine, "%[%a%a%a:[%w%_*%-*]+%]") do
+      findID = findID:sub(2, -2)
+      if xrTypes[findID:sub(1,3)] == nil then
+        if xrTargetKeys[findID] == nil then -- Don't Store Duplicates
+          xrTargetKeys[findID] = {["Index"] = xrTypes['gen'].Counter, ["Name"] = xrTypes['gen'].Name}
+          xrTypes['gen'].Counter = xrTypes['gen'].Counter+1
+        end
+      elseif xrTargetKeys[findID] == nil then -- Don't Store Duplicates
+         xrTargetKeys[findID] = {["Index"] = xrTypes[findID:sub(1,3)].Counter, ["Name"] = xrTypes[findID:sub(1,3)].Name}
+         xrTypes[findID:sub(1,3)].Counter = xrTypes[findID:sub(1,3)].Counter+1
+      end
+      
+     --[[ if xrTargetKeys[findID] == nil then -- Don't Store Duplicates
+        if findID:sub(1,3) == 'fig' then 
+          xrTargetKeys[findID] = xrTypes[findID:sub(1,3)].Counter
+          xrTypes.fig.Counter = xrTypes.fig.Counter+1
+        elseif findID:sub(1,3) == 'tab' then
+          xrTargetKeys[findID] = xrTypes.tab.Counter
+          xrTypes.tab.Counter = xrTypes.tab.Counter+1
+        end
+      end ]] 
     end
   end
 end
@@ -94,16 +109,18 @@ end
 file = io.open(("xr"..sInputfile), "w") -- List is build Now Open new file for writing to same output.
 
 
-
+--[[
 for sLine in io.lines(sInputfile) do 
-  if(string.match(sLine, "fig:[%w%_*%-*]+")) then 
-    substituteString=xrTypes.fig.Name.." "..xrTargetKeys[string.match(sLine, "fig:[%w%_*%-*]+")]
-    if(string.match(sLine, "^%!%[[^fig:]")) then sLine = string.gsub(sLine, "^%!%[", "!["..substituteString..": ", 1) end
-    sLine = string.gsub(sLine, "fig:[%w%_*%-*]+", substituteString)
+for xrType in pairs(xrTypes) do
+  if(string.match(sLine, xrType..":[%w%_*%-*]+")) then
+    
+    substituteString=xrTypes[xrType].Name.." "..xrTargetKeys[string.match(sLine, xrType..":[%w%_*%-*]+")]
+    if(string.match(sLine, "^%!%[[^"..xrType..":]")) then sLine = string.gsub(sLine, "^%!%[", "!["..substituteString..": ", 1) end
+    sLine = string.gsub(sLine, xrType..":[%w%_*%-*]+", substituteString)
     sLine = string.gsub(sLine, "\"", "\""..substituteString..": ", 1)
   end
-  
-  
+ end 
+  ]]
   --[[if(string.match(sLine, xrTypes.fig.Inline)) then -- Let's do the inline figures
     replaceID=sLine:sub(string.find(sLine, xrTypes.fig.Inline))
     substituteString = xrTypes.fig.Name.." "..xrTargetKeys[replaceID:sub(3,-3)]
@@ -113,12 +130,12 @@ for sLine in io.lines(sInputfile) do
   
   
   end
-  ]]
+  
   file:write(sLine, "\n")
 end
 
 file:close()  -- Close it
-
+]]
 --[[for sTemp in string.gmatch(sLine, xrTypes.fig.Inline) do
     s = sTemp:sub(2, 5)
     if xrTargetKeys[s] then -- Got to Be Listed  
