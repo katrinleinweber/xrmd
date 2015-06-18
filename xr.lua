@@ -64,7 +64,16 @@ xrTypes["fig"]={ ["Name"]      = "Figure",
                     ["RefInline"] = "%!%[.+%]%[fig:[%w%_*%-*]+%]", 
                     ["RefEnd"]    = "%[fig:[%w%_*%-*]+%]%:%s+(.-)([^\\/]-%.?([^%.\\/]*))%s+[\"*\'*.\"*\'*]*%s*[width=[\"*\'*.\"*\'*]]?",
                     ["Target"]    = "%[fig:[%w%_*%-*]+%]" 
-                  }                
+                  }  
+                  
+xrTypes["tab"]={ ["Name"]      = "Table", 
+                    ["Counter"]   = 1, 
+                    ["Inline"]    = "%!%[fig:%g+%s.+%]%(.+%)", 
+                    ["RefInline"] = "%!%[.+%]%[fig:[%w%_*%-*]+%]", 
+                    ["RefEnd"]    = "%[fig:[%w%_*%-*]+%]%:%s+(.-)([^\\/]-%.?([^%.\\/]*))%s+[\"*\'*.\"*\'*]*%s*[width=[\"*\'*.\"*\'*]]?",
+                    ["Target"]    = "%[tab:[%w%_*%-*]+%]" 
+                  }                                  
+              
                   
 --xrTypes["tab"]={["Name"]="Table",  ["Counter"]=1}
 
@@ -88,10 +97,10 @@ file = io.open(("xr"..sInputfile), "w") -- List is build Now Open new file for w
 
 for sLine in io.lines(sInputfile) do 
   if(string.match(sLine, "fig:[%w%_*%-*]+")) then 
-    sLine = string.gsub(sLine, "fig:[%w%_*%-*]+", xrTypes.fig.Name.." "..xrTargetKeys[string.match(sLine, "fig:[%w%_*%-*]+")])
-    sLine = string.gsub(sLine, "\"", "\""..substituteString..": ", 1) 
-
-    
+    substituteString=xrTypes.fig.Name.." "..xrTargetKeys[string.match(sLine, "fig:[%w%_*%-*]+")]
+    if(string.match(sLine, "^%!%[[^fig:]")) then sLine = string.gsub(sLine, "^%!%[", "!["..substituteString..": ", 1) end
+    sLine = string.gsub(sLine, "fig:[%w%_*%-*]+", substituteString)
+    sLine = string.gsub(sLine, "\"", "\""..substituteString..": ", 1)
   end
   
   

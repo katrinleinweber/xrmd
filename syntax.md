@@ -1,15 +1,6 @@
 Markdown: Syntax
 ================
 
-<ul id="ProjectSubmenu">
-    <li><a href="/projects/markdown/" title="Markdown Project Page">Main</a></li>
-    <li><a href="/projects/markdown/basics" title="Markdown Basics">Basics</a></li>
-    <li><a class="selected" title="Markdown Syntax Documentation">Syntax</a></li>
-    <li><a href="/projects/markdown/license" title="Pricing and License Information">License</a></li>
-    <li><a href="/projects/markdown/dingus" title="Online Markdown Web Form">Dingus</a></li>
-</ul>
-
-
 *   [Overview](#overview)
     *   [Philosophy](#philosophy)
     *   [Inline HTML](#html)
@@ -542,6 +533,11 @@ following lines will produce a horizontal rule:
 <h2 id="span">Span Elements</h2>
 
 <h3 id="link">Links</h3>
+
+[Title of Summat](sec:1)
+
+[Title of Summat](#sec:1 "Title")
+
 
 Markdown supports two style of links: *inline* and *reference*.
 

@@ -61,9 +61,9 @@ The move from Traditional Search to Web Search may be a result of changes in use
 
 For reasons ranging from an obligation to curiosity, Web Search is now moving beyond the individual and into the social [#mislove2006exploiting]. Users have a strong inclination to seek information from others during the search process. Indeed, search systems using statistical analytics over traces left behind by others can help support the search experience [#chi2009information]. Furthermore, result clustering based on social networks in a crowdsourcing role [#Horowitz:2010:ALS:1772690.1772735], and grouped clusters displaying multiple tabbed search results [#Zamir19991361] are also becoming increasingly used. These advances suggest a social component to dataset and variable retrieval will, in the future, be expected.
 
-![Figure 1: Simple Search -- Can be seen on the right-hand side.](Figures/ESDS_home.jpg "Hello")
+![Figure 1: Simple Search -- Can be seen on the right-hand side.](Figures/ESDS_home.jpg "Figure 1: Hello")
 
-[Figure 1]: Figures/ESDS_home.jpg "Simple Search"
+[Figure 1]: Figures/ESDS_home.jpg "Figure 1: Simple Search"
 
 
 # Context of this Study
@@ -76,48 +76,48 @@ Although there is a large body of research examining search behaviour in Informa
 
 ![Figure 2: Orientation -- The search form is at the top of the page and the results are returned underneath. To view the variables, the user must click the 'Study Description/Documentation', then use the 'Variable List' link at the top of the page.][Figure 2]
 
-[Figure 2]: Figures/ESDS_cs.png "Orientation" width="75%"
+[Figure 2]: Figures/ESDS_cs.png "Figure 2: Orientation" width="75%"
 
 ## Current Traditional Search Interface
 At the time of the study, access to data stored in the UKDA -- including Government and other large-scale surveys -- was formally provided through a Website hosted by the ESDS, which provided numerous facilities for searching the UKDA catalogues. 
 
-![BSAS 2009 -- The variable list in the British Social Attitudes Survey 2009. To view a variable, the user selects one from the list box and clicks 'show variable'.][Figure 3]
+![Figure 3: BSAS 2009 -- The variable list in the British Social Attitudes Survey 2009. To view a variable, the user selects one from the list box and clicks 'show variable'.][Figure 3]
 
-[Figure 3]: Figures/ESDS_vl.png "BSAS 2009" width="75%"
+[Figure 3]: Figures/ESDS_vl.png "Figure 3: BSAS 2009" width="75%"
 
 On the home page (see [Figure 1]), the Simple Search allowed users to search all fields in a record for keywords or phrases. 
 
 The resulting surveys were listed on the Catalogue Search page (see [Figure 4]), and searches could then be refined using the Catalogue Search form. To access the variables in the survey, the user clicked through to the 'Survey Description/Documentation', and then followed the 'Variable List' link at the top of the page, which provided a list of all the variables in the dataset (see [Figure 4]). Variable details were provided on a separate page when the user selected the name and clicked 'show variable'. The Variable Search (see [Figure 4]) contained a single search box, and returned surveys that contain variables matching the keywords in a list underneath. Users could click through to the survey description and view the variable list as before, or click the link on the left of the result to go straight to the list of variables. The Nesstar tool allowed users to search and browse surveys in a tree view (see [Figure 4]), and the ESDS Government Variable Search returned a list of variables that matched search terms just from the Government surveys. 
 
-![Variable Orientation -- The search box is at the top of the page, and the results are returned underneath. To view the list of variables, the user clicks the 'Variables in...' link on the left hand side of each result, which provides a list of all the variables in the dataset.][Figure 5]
+![Figure 5: Variable Orientation -- The search box is at the top of the page, and the results are returned underneath. To view the list of variables, the user clicks the 'Variables in...' link on the left hand side of each result, which provides a list of all the variables in the dataset.][Figure 5]
 
-[Figure 5]: Figures/ESDS_vs.png "Variable Orientation" width="75%"
+[Figure 5]: Figures/ESDS_vs.png "Figure 5: Variable Orientation" width="75%"
 
 In addition to the search facilities, there were numerous routes through which users could browse the available surveys, such as the 'Browse by subject' and 'Major studies' pages. Lists of variables could then be accessed from the study description pages. The ESDS Website, like many sites, was frequently edited and upgraded; the study was conducted between the 27th September and 3rd November 2011, a period during which there were no major changes to the functionality offered by the site. 
 
-![The Nesstar interface -- Surveys matching the search terms are listed in the menu on the left hand side.][Figure 6]
+![Figure 6: The Nesstar interface -- Surveys matching the search terms are listed in the menu on the left hand side.][Figure 6]
 
-[Figure 6]: Figures/nesstar.png "The Nesstar interface" width="75%"
+[Figure 6]: Figures/nesstar.png "Figure 6: The Nesstar interface" width="75%"
 
 ## Comparable Web Search Interface
 
 The Web Search interface (MethodBox), developed as part of the ESRC-funded Obesity eLab project, was designed to simplify the process of accessing survey data by enabling people to look for variables of interest through a straightforward 'Web Search' interface embedded in a scientific social network. Researchers typed a query in a single search box and then browsed relevant results. Variables were displayed in a table format, which could be reordered according to a number of categories. The variable description was displayed prominently, allowing users to see at a glance whether the variable was relevant to their research question. Variables of interest could be selected and then downloaded to the user's desktop. 
 
-![MethodBox Home -- Users type a query in the central search box, and can modify what is searched (surveys, variables etc.) using the tick boxes underneath.][Figure 7]
+![Figure 7: MethodBox Home -- Users type a query in the central search box, and can modify what is searched (surveys, variables etc.) using the tick boxes underneath.][Figure 7]
 
-[Figure 7]: Figures/mb_home.png "MethodBox Home" width="75%"
+[Figure 7]: Figures/mb_home.png "Figure 7: MethodBox Home" width="75%"
 
 A clear priority identified in the requirements analysis was a fast and straightforward means of identifying variables that are relevant to a particular research question. To achieve this, MethodBox assimilates all the required information about a variable, including its name, values and metadata, using the [Document Data Initiative (DDI)](http://www.ddialliance.org) XML files available through the ESDS Nesstar service, and through processing the dataset documentation with the [Utopia PDF parser](http://getutopia.com). This process allowed MethodBox to treat variables as first class citizens in their own right. Users could also upload their own data files and add metadata in the DDI XML format. Assets inside MethodBox were indexed using Apache Solr, allowing users to search variable names and metadata quickly and easily, as well as the surveys, data analysis scripts, data extracts (subsets of variables created by other users), publications and user profiles also held by MethodBox. 
 
-![Survey Results -- Categories that contain results are displayed in separate tabs. Results are displayed in a table and ordered according to relevance, but can be sorted by clicking the table headers.][Figure 8]
+![Figure 8: Survey Results -- Categories that contain results are displayed in separate tabs. Results are displayed in a table and ordered according to relevance, but can be sorted by clicking the table headers.][Figure 8]
 
-[Figure 8]: Figures/mb_results.png "Survey Results" width="75%"
+[Figure 8]: Figures/mb_results.png "Figure 8: Survey Results" width="75%"
 
-The MethodBox user interface was designed to correspond to the common mental model of an online Web Search interface: a box for entering terms; a button to run the search; and a list of results [#zhang2008undergraduate]. The homepage consisted of a single, 'Google-style' search box, with tick boxes underneath to allow users to specify what they wanted to search (see [Figure 7]). All categories (surveys, variables, methods, data extracts and publications) were selected by default. Matching results were returned in a table format. Results were initially ordered according to relevance, but could be sorted -- for example by year or survey -- by clicking the table headers. If there were matching results in more than one category, these were displayed in separate tabs (see [Figure 7]). Variable details could be accessed by clicking the arrow to the left of the result, which provided them in a drop down box, or by clicking the variable title, which showed them on a separate page. Users could also select and search a subset of surveys (see Figure 8), or navigate to a complete list of the variables from a link on the survey description page. If users were logged in, they could add any number of variables to their 'shopping' cart, before downloading this subset of data to their desktop as a 'data extract'. 
+The MethodBox user interface was designed to correspond to the common mental model of an online Web Search interface: a box for entering terms; a button to run the search; and a list of results [#zhang2008undergraduate]. The homepage consisted of a single, 'Google-style' search box, with tick boxes underneath to allow users to specify what they wanted to search (see [Figure 7]). All categories (surveys, variables, methods, data extracts and publications) were selected by default. Matching results were returned in a table format. Results were initially ordered according to relevance, but could be sorted -- for example by year or survey -- by clicking the table headers. If there were matching results in more than one category, these were displayed in separate tabs (see [Figure 7]). Variable details could be accessed by clicking the arrow to the left of the result, which provided them in a drop down box, or by clicking the variable title, which showed them on a separate page. Users could also select and search a subset of surveys (see [Figure 8]), or navigate to a complete list of the variables from a link on the survey description page. If users were logged in, they could add any number of variables to their 'shopping' cart, before downloading this subset of data to their desktop as a 'data extract'. 
 
-![Surveys -- Users can select surveys and search them for variables.][Figure 9]
+![Figure 9: Surveys -- Users can select surveys and search them for variables.][Figure 9]
 
-[Figure 9]: Figures/mb_survey.png "Surveys" width="75%"
+[Figure 9]: Figures/mb_survey.png "Figure 9: Surveys" width="75%"
 
 
 # Evaluation
@@ -317,9 +317,9 @@ It was not just the simplicity of the landing page that was behind the Web Searc
  
 This tells us that presenting relevant results immediately after a search is very important: if a user is searching for a variable, and gets back a survey or dataset, they find this confusing. What else can we learn about the format that the results should take? It is not possible to determine from the current study whether the Web Search interface takes the optimal approach to formatting variable search results, but there is evidence that it uses at least an adequate one, as participants were able to find a variable that mostly or completely matched the search criteria the majority of the time. In fact, participants' comments indicated that they were very happy with the presentation of the results. The majority said that they liked it, and those who specified why focused on the fact that the relevance (or otherwise) of the variable could be seen at a glance. The eye tracking data shows that participants made the decision about variable relevance primarily by looking at the 'description' column of the results, so providing a summary of what the variable contains, and not just its title, appears to be important. 
 
-![New UKDA Interface -- 'Discover' adopting the Web Search Interface and including: Faceted Search (at left); Query Reformulation (at centre); and Browsing (at centre) features.][Figure 10]
+![Figure 10: New UKDA Interface -- 'Discover' adopting the Web Search Interface and including: Faceted Search (at left); Query Reformulation (at centre); and Browsing (at centre) features.][Figure 10]
 
-[Figure 10]: Figures/New-UKDA.png "New UKDA Interface."  width="75%"
+[Figure 10]: Figures/New-UKDA.png "Figure 10: New UKDA Interface."  width="75%"
 
 ## Improving the Web Search Interface
 
@@ -333,9 +333,9 @@ A second limitation is that the study was conducted with relatively inexperience
 
 A third limitation of the study was that it compared only two tools for accessing variable data. This study is one of the first to investigate user preferences for finding and accessing variable data; further work considering other tools or methods is undoubtedly necessary. It would also be useful to examine researchers' preferences in longitudinal, naturalistic settings, as well as controlled, laboratory-based studies. 
 
-![Discover Results -- Search results adopting the Web Search Interface and including: Surrogates (at centre as part of 'Full Record' detail); Relevance Feedback (at top-right as 'Sorted by:'); Summarisation (at centre with each result); Analytics and Visual Presentation (at top-left) features.][Figure 11]
+![Figure 11: Discover Results -- Search results adopting the Web Search Interface and including: Surrogates (at centre as part of 'Full Record' detail); Relevance Feedback (at top-right as 'Sorted by:'); Summarisation (at centre with each result); Analytics and Visual Presentation (at top-left) features.][Figure 11]
 
-[Figure 11]: Figures/New-UKDA-Results.png "Discover Results" width="75%"
+[Figure 11]: Figures/New-UKDA-Results.png "Figure 11: Discover Results" width="75%"
 
 
 # Study Impact
