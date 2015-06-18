@@ -91,16 +91,6 @@ for xrType in pairs(xrTypes) do
          xrTargetKeys[findID] = {["Index"] = xrTypes[findID:sub(1,3)].Counter, ["Name"] = xrTypes[findID:sub(1,3)].Name}
          xrTypes[findID:sub(1,3)].Counter = xrTypes[findID:sub(1,3)].Counter+1
       end
-      
-     --[[ if xrTargetKeys[findID] == nil then -- Don't Store Duplicates
-        if findID:sub(1,3) == 'fig' then 
-          xrTargetKeys[findID] = xrTypes[findID:sub(1,3)].Counter
-          xrTypes.fig.Counter = xrTypes.fig.Counter+1
-        elseif findID:sub(1,3) == 'tab' then
-          xrTargetKeys[findID] = xrTypes.tab.Counter
-          xrTypes.tab.Counter = xrTypes.tab.Counter+1
-        end
-      end ]] 
     end
   end
 end
@@ -109,41 +99,29 @@ end
 file = io.open(("xr"..sInputfile), "w") -- List is build Now Open new file for writing to same output.
 
 
---[[
+
 for sLine in io.lines(sInputfile) do 
-for xrType in pairs(xrTypes) do
-  if(string.match(sLine, xrType..":[%w%_*%-*]+")) then
+for xrTargetKey in pairs(xrTargetKeys) do
+ if(string.match(sLine, xrTargetKey)) then
     
-    substituteString=xrTypes[xrType].Name.." "..xrTargetKeys[string.match(sLine, xrType..":[%w%_*%-*]+")]
+    -- substituteString=xrTypes[xrType].Name.." "..xrTargetKeys[string.match(sLine, xrType..":[%w%_*%-*]+")]
+    
+    --todo
+    
     if(string.match(sLine, "^%!%[[^"..xrType..":]")) then sLine = string.gsub(sLine, "^%!%[", "!["..substituteString..": ", 1) end
     sLine = string.gsub(sLine, xrType..":[%w%_*%-*]+", substituteString)
-    sLine = string.gsub(sLine, "\"", "\""..substituteString..": ", 1)
+    
+    
+    --done
+    
+    sLine = string.gsub(sLine, "\"", "\""..xrTargetKeys[xrTargetKey].Name.." "..xrTargetKeys[xrTargetKey].Index..": ", 1)
   end
+  
  end 
-  ]]
-  --[[if(string.match(sLine, xrTypes.fig.Inline)) then -- Let's do the inline figures
-    replaceID=sLine:sub(string.find(sLine, xrTypes.fig.Inline))
-    substituteString = xrTypes.fig.Name.." "..xrTargetKeys[replaceID:sub(3,-3)]
-    sLine = string.gsub(sLine, xrTypes.fig.Inline, "!["..substituteString..": ")
-    sLine = string.gsub(sLine, "\"", "\""..substituteString..": ", 1) 
-  elseif(string.match(sLine, xrTypes.fig.Inline)) then
   
-  
-  end
-  
+
   file:write(sLine, "\n")
 end
 
 file:close()  -- Close it
-]]
---[[for sTemp in string.gmatch(sLine, xrTypes.fig.Inline) do
-    s = sTemp:sub(2, 5)
-    if xrTargetKeys[s] then -- Got to Be Listed  
-      if s:sub(1,3) == "fig" then
-        substituteString="Figure "..xrTargetKeys[s]
-      elseif s:sub(1,3) == "tab" then
-        substituteString="Table "..xrTargetKeys[s]
-      end
-      sLine = string.gsub(sLine, "%["..s.."%]", substituteString)
-    end  
-  end]]
+
