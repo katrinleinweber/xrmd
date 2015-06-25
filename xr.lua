@@ -1,7 +1,7 @@
 --[[ Grab Command Line Arguements ]]
 
 for index,argument in pairs(arg) do
-  if argument=="-o" then
+  if argument=="-s" then
       sInputfile = arg[index+1] -- Input File
   elseif argument=="-p" then
       sPrefix = arg[index+1] -- counter prefix File
@@ -10,9 +10,9 @@ for index,argument in pairs(arg) do
   end  
 end
 
+if sPrefix == nil then sPrefix = ""; if bVerbose then print("Prefix not specified.") end else sPrefix= sPrefix.."." end
 if bVerbose then print("Input file: "..sInputfile) end
 if bVerbose then print("Counter Prefix: "..sPrefix) end
-if sPrefix == nil then sPrefix = ""; if bVerbose then print("Prefix not specified.") end else sPrefix= sPrefix.."." end
 
 if sInputfile and io.open(sInputfile, "r") then 
 
