@@ -25,12 +25,12 @@ end
 
 Based on the predicate that the fig:xyz method from LaTeX
 
-ch:	chapter
+cha:	chapter
 sec:	section
-subsec:	subsection
+sse:	subsection
 fig:	figure
 tab:	table
-eq:	equation
+equ:	equation
 lst:	code listing
 itm:	enumerated list item
 alg:	algorithm
@@ -45,24 +45,44 @@ xrTypes["fig"]={["Name"] = "Figure", ["Counter"] = 1}
 xrTypes["gen"]={["Name"] = "General", ["Counter"] = 1}
 xrTypes["tab"]={["Name"] = "Table", ["Counter"] = 1}
                 
-                  
---xrTypes["tab"]={["Name"]="Table",  ["Counter"]=1}
-
 -- Build List of all Figures Increamenting as you go.
 for xrType in pairs(xrTypes) do
   for sLine in io.lines(sInputfile) do 
     for findID in string.gmatch(sLine, "%[%a%a%a:[%w%_*%-*]+%]") do
       findID = findID:sub(2, -2)
+      findID = string.gsub(findID, "-", "_")
       if xrTypes[findID:sub(1,3)] == nil then
         if xrTargetKeys[findID] == nil then -- Don't Store Duplicates
           xrTargetKeys[findID] = {["Index"] = xrTypes['gen'].Counter, ["Name"] = xrTypes['gen'].Name}
           xrTypes['gen'].Counter = xrTypes['gen'].Counter+1
-         print("Found Cross-Reference: "..findID)
+         print("Found  Cross-Reference: "..findID)
         end
       elseif xrTargetKeys[findID] == nil then -- Don't Store Duplicates
          xrTargetKeys[findID] = {["Index"] = xrTypes[findID:sub(1,3)].Counter, ["Name"] = xrTypes[findID:sub(1,3)].Name}
          xrTypes[findID:sub(1,3)].Counter = xrTypes[findID:sub(1,3)].Counter+1
-         print("Found Cross-Reference: "..findID)
+         print("Found  Cross-Reference: "..findID)
+      end
+    end
+  end
+end
+
+-- This Second Pass Gets the IDs 'defined' but not actually used.
+
+for xrType in pairs(xrTypes) do
+  for sLine in io.lines(sInputfile) do 
+    for findID in string.gmatch(sLine, "%[%a%a%a:[%w%_*%-*]+[%s:%]]?") do
+      findID = findID:sub(2, -2)
+      findID = string.gsub(findID, "-", "_")
+      if xrTypes[findID:sub(1,3)] == nil then
+        if xrTargetKeys[findID] == nil then -- Don't Store Duplicates
+          xrTargetKeys[findID] = {["Index"] = xrTypes['gen'].Counter, ["Name"] = xrTypes['gen'].Name}
+          xrTypes['gen'].Counter = xrTypes['gen'].Counter+1
+         print("Unused Cross-Reference: "..findID)
+        end
+      elseif xrTargetKeys[findID] == nil then -- Don't Store Duplicates
+         xrTargetKeys[findID] = {["Index"] = xrTypes[findID:sub(1,3)].Counter, ["Name"] = xrTypes[findID:sub(1,3)].Name}
+         xrTypes[findID:sub(1,3)].Counter = xrTypes[findID:sub(1,3)].Counter+1
+         print("Unused Cross-Reference: "..findID)
       end
     end
   end
