@@ -36,7 +36,11 @@ itm:	enumerated list item
 alg:	algorithm
 app:	appendix subsection
 
+lab: label target
+
 ]]
+
+
 
 xrTargetKeys = {}
 xrTypes = {}
@@ -44,7 +48,8 @@ xrTypes = {}
 xrTypes["fig"]={["Name"] = "Figure", ["Counter"] = 1}                    
 xrTypes["gen"]={["Name"] = "General", ["Counter"] = 1}
 xrTypes["tab"]={["Name"] = "Table", ["Counter"] = 1}
-                
+
+ 
 -- Build List of all Figures Increamenting as you go.
 for xrType in pairs(xrTypes) do
   for sLine in io.lines(sInputfile) do 
@@ -65,7 +70,7 @@ for xrType in pairs(xrTypes) do
     end
   end
 end
-
+ 
 -- This Second Pass Gets the IDs 'defined' but not actually used.
 
 for xrType in pairs(xrTypes) do
@@ -89,8 +94,8 @@ for xrType in pairs(xrTypes) do
 end
 
 
-file = io.open(("xr"..sInputfile), "w") -- List is build Now Open new file for writing to same output.
-if bVerbose then print("\nOpening xr"..sInputfile.." for changes") end
+ file = io.open(("xr"..sInputfile), "w") -- List is build Now Open new file for writing to same output.
+ if bVerbose then print("\nOpening xr"..sInputfile.." for changes") end
 
 
 for sLine in io.lines(sInputfile) do 
